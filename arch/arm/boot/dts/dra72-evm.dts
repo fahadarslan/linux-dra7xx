@@ -640,6 +640,11 @@
 	};
 };
 
+&i2c4 {
+	status = "okay";
+	clock-frequency = <400000>;
+};
+
 &uart1 {
 	pinctrl-names = "default";
 	pinctrl-0 = <&uart1_pins>;
