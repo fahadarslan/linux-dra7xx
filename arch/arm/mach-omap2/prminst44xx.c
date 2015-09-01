@@ -29,6 +29,8 @@
 #include "prcm_mpu44xx.h"
 #include "soc.h"
 
+#define OMAP4430_RST_GLOBAL_COLD_SW_MASK (1 << 1)
+
 static void __iomem *_prm_bases[OMAP4_MAX_PRCM_PARTITIONS];
 
 static s32 prm_dev_inst = PRM_INSTANCE_UNKNOWN;
@@ -196,9 +198,9 @@ void omap4_prminst_global_warm_sw_reset(void)
 
 	v = omap4_prminst_read_inst_reg(OMAP4430_PRM_PARTITION, inst,
 					OMAP4_PRM_RSTCTRL_OFFSET);
-	v |= OMAP4430_RST_GLOBAL_WARM_SW_MASK;
+	v |= OMAP4430_RST_GLOBAL_COLD_SW_MASK;
 	omap4_prminst_write_inst_reg(v, OMAP4430_PRM_PARTITION,
-				 inst, OMAP4_PRM_RSTCTRL_OFFSET);
+				 inst, (OMAP4_PRM_RSTCTRL_OFFSET << 0x1));
 
 	/* OCP barrier */
 	v = omap4_prminst_read_inst_reg(OMAP4430_PRM_PARTITION,
